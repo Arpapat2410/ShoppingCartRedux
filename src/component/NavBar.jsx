@@ -1,10 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const NavBar = () => {
     const carts = useSelector((state) => state.carts);
     const cartItemNo = carts.reduce((total, product) => total + product.quantity, 0);
 
+    const dispatch = useDispatch();
+    const handlePageChange = (type) => {
+        dispatch({ type });
+    };
     return (
         <div className='bg-[#202020]  '>
             <div className="navbar max-w-7xl mx-auto ">
@@ -14,13 +19,13 @@ const NavBar = () => {
             
             <div className="flex-none">
                 <div className="dropdown dropdown-end mr-2">
-                    <button className='text-white'>Home</button>
+                    <button className='btn btn-ghost text-xl text-white' onClick={()=> handlePageChange("HOME")}>Home</button>
                 </div>
-                <div className="dropdown dropdown-end mr-2">
+                <div className="dropdown dropdown-end mr-4">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-                        <div className="indicator">
+                        <div className="indicator" onClick={()=> handlePageChange("CART")}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                            <span className="badge badge-sm indicator-item">{cartItemNo}</span>
+                            <span className="badge badge-sm indicator-item" >{cartItemNo}</span>
                         </div>
                     </div>
 

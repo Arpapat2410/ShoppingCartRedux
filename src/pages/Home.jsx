@@ -1,7 +1,7 @@
 import React from 'react'
-import Addproduct from './Addproduct'
+import Addproduct from '../component/Addproduct'
 import { useSelector } from 'react-redux'
-import Porductitem from './Porductitem'
+import Porductitem from '../component/Porductitem'
 
 const Home = () => {
     //useSelector กด subci product ไว้

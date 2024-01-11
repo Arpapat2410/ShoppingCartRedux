@@ -1,6 +1,6 @@
 import './App.css'
 import NavBar from './component/NavBar'
-import Page from './component/Page'
+import Page from './pages/Page'
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
 
