@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
-import { QRCode } from 'qrcode'
+import qrcode  from 'qrcode'
 import generatePayload from 'promptpay-qr'
 
 const Bill = () => {
@@ -11,6 +11,7 @@ const Bill = () => {
     const carts = useSelector((state) => state.carts);
     const subTotal = carts.reduce((total, product) => total + product.quantity * product.price, 0);
 
+    const shipping = 35;
     const totalBilling = (subTotal) => {
         if (subTotal > 0) return subTotal + 35;
         return 0; // Return 0 if subTotal is not greater than 0
@@ -21,24 +22,21 @@ const Bill = () => {
         generateQR(total);
     }, [subTotal]);
 
-    const generateQR = async (amount) => {
+    const generateQR = (amount) => {
         const payload = generatePayload(mobileNumber, { amount });
-    
         const options = { type: 'svg', color: { dark: '#000', light: '#fff' } };
-        try {
-            const svg = await QRCode.toString(payload, options);
-            setSvg(svg);
-        } catch (err) {
-            console.log(err);
-        }
+        qrcode.toString(payload, options, async(err, svg) => {
+            if (err) return console.log(err)
+            await setSvg(svg)
+        })
     };
-
+    
     const handleCheckOut = () => {
         Swal.fire({
             title: "<strong>PromptPay Payment</strong>",
             icon: "info",
-            html: `<img src="data:image/svg+xml;utf8;${encodeURIComponent(svg)}"/>
-            Please use any Bank application scan this QRCode to pay with PromptPay`,
+            html: `<img src="data:image/svg+xml;utf8,${encodeURIComponent(svg)}" alt="" />`,
+            text: "Please use any Bank application scan this QRCode to pay with PromptPay",
             showCloseButton: true,
             showCancelButton: true,
             focusConfirm: true,
@@ -64,24 +62,24 @@ const Bill = () => {
                                 Shipping
                             </p>
                             <p className='text-lg text-rose-600 text-end'>
-                                {subTotal > 0 ? "35 ฿" : 0 + "฿"}
+                                {shipping}
                             </p>
                         </div>
-                        <div className='flex justify-between pb-2 border-b-2 '>
-                            <p className='text-lg text-rose-600'>
+                        <div className='flex justify-between pb-2 border-b-2 mt-3'>
+                            <p className='text-lg text-rose-600 mt-3'>
                                 Total
                             </p>
-                            <div>
-                                <p className='text-lg text-rose-600'>
+                            <div className='text-end mt-3 '>
+                                <p className='text-2xl text-rose-600 '>
                                     {subTotal > 0 ? totalBilling(subTotal) : 0}
                                 </p>
-                                <p className='text-lg text-rose-600 '>
+                                <p className='text-lg text-rose-600 mt-3'>
                                     including VAT
                                 </p>
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <button className='btn btn-[#ffaa00] text- container ' onClick={handleCheckOut}>Check out</button>
+                            <button className='btn bg-[#ea9c00]  text-white  container mt-5 ' onClick={handleCheckOut}>Check out</button>
                         </div>
                     </div>
                 </div>

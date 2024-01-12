@@ -14,7 +14,7 @@ const NavBar = () => {
         <div className='bg-[#202020]  '>
             <div className="navbar max-w-7xl mx-auto ">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl text-white">Shopping Cart</a>
+                <a className="btn btn-ghost text-xl text-white" onClick={()=> handlePageChange("HOME")}>Shopping Cart</a>
             </div>
             
             <div className="flex-none">

@@ -62,7 +62,7 @@ const Addproduct = () => {
                         </div>
                         <div className="card-actions justify-end mt-5">
                             <button className="btn">Clear</button>
-                            <button className="btn btn-[#ffaa00]" >New product</button>
+                            <button className="btn  bg-[#ea9c00] text-white" >New product</button>
                         </div>
                     </form>
                 </div>
