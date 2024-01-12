@@ -6,7 +6,6 @@ import generatePayload from 'promptpay-qr'
 
 const Bill = () => {
     const mobileNumber = "097-179-6938";
-    const IdCardNumber = "1-7399-02024-00-1";
     const [svg, setSvg] = useState("");
     const carts = useSelector((state) => state.carts);
     const subTotal = carts.reduce((total, product) => total + product.quantity * product.price, 0);
@@ -62,7 +61,7 @@ const Bill = () => {
                                 Shipping
                             </p>
                             <p className='text-lg text-rose-600 text-end'>
-                                {shipping}
+                                {shipping} ฿
                             </p>
                         </div>
                         <div className='flex justify-between pb-2 border-b-2 mt-3'>
@@ -71,7 +70,7 @@ const Bill = () => {
                             </p>
                             <div className='text-end mt-3 '>
                                 <p className='text-2xl text-rose-600 '>
-                                    {subTotal > 0 ? totalBilling(subTotal) : 0}
+                                    {subTotal > 0 ? totalBilling(subTotal) : 0} ฿
                                 </p>
                                 <p className='text-lg text-rose-600 mt-3'>
                                     including VAT

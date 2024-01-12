@@ -58,7 +58,7 @@ const CartItem = ({ product }) => {
                         </span>
                     </div>
 
-                    <div className='flex items-center space-x-4'>
+                    <div className='flex items-center space-x-4 text-end'>
                         <p className='text-xl'>{price * quantity}฿ </p>
                         <button className='lws-removeFromCart'onClick={handleRemoveFromCart}><GrClose /></button>
                     </div>
